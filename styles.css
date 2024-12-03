@@ -79,3 +79,33 @@ transform: rotateY(180deg);
   border: 2px;
   color: black;
 }
+
+#timer{
+  text-align: center;
+  color:black;
+  font-size: 25px;
+  font-style: italic;
+  
+}
+
+
+
+@media (max-width: 480px) {
+  .cardgame{
+    width:300px;
+    height: 500px;
+    perspective: 1000px;
+    margin: auto;
+    display: grid;
+   grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: (repeat(4, 1fr));
+  gap:0px
+  
+  }
+  .front,.back{
+    width:60%;
+    height: 600%;
+  
+  }
+  
+}
