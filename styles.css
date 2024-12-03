@@ -16,6 +16,7 @@ img{
 }
 
 .cardgame{
+  
   width:640px;
   height: 600px;
   perspective: 1000px;
@@ -92,14 +93,14 @@ transform: rotateY(180deg);
 
 @media (max-width: 480px) {
   .cardgame {
-    width: 320px;
+    width: 340px;
     height: 500px;
     perspective: 1000px;
     margin: auto;
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     grid-template-rows: repeat(4, 1fr);
-    gap: 5px;
+    gap: 3px;
   }
 
   .front, .back {
