@@ -104,8 +104,15 @@ transform: rotateY(180deg);
   }
   .front,.back{
     width:60%;
-    height: 600%;
+    height: 60%;
   
+  }
+  #timer{
+    text-align: center;
+    color:black;
+    font-size: 10px;
+    font-style: italic;
+    
   }
   
 }
