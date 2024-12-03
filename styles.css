@@ -93,7 +93,7 @@ transform: rotateY(180deg);
 @media (max-width: 480px) {
   .cardgame {
     width: 320px;
-    height: 400px;
+    height: 500px;
     perspective: 1000px;
     margin: auto;
     display: grid;
