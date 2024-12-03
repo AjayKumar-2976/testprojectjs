@@ -91,28 +91,29 @@ transform: rotateY(180deg);
 
 
 @media (max-width: 480px) {
-  .cardgame{
-    width:80px;
-    height: 100px;
+  .cardgame {
+    width: 320px;
+    height: 400px;
     perspective: 1000px;
     margin: auto;
     display: grid;
-   grid-template-columns: repeat(4, 1fr);
-  grid-template-rows: (repeat(4, 1fr));
-  gap:0px
-  
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(4, 1fr);
+    gap: 5px;
   }
-  .front,.back{
-    width:60%;
-    height: 60%;
-  
+
+  .front, .back {
+    width: 100%; /* Match parent container */
+    height: 100%;
+    object-fit: cover; /* Ensure proportional scaling */
+    border-radius: 5px;
   }
-  #timer{
+
+  #timer {
     text-align: center;
-    color:black;
-    font-size: 10px;
+    color: black;
+    font-size: 12px;
     font-style: italic;
-    
+    margin-bottom: 10px;
   }
-  
 }
