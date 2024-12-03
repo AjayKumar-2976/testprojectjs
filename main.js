@@ -84,11 +84,12 @@ function changeCardOrder() {
 
 
   function checkgameover(){
-    if(matchedCards === cards.length/2){
-      const gameOver = new Audio('./mixkit-musical-game-over-959.wav');
-      gameOver.play();
-      alert("Congratulations! You've matched all the cards.");
-     
+    if(matchedCards === cards.length/2){     
+      setTimeout(()=>{
+        alert("Congratulations! You've matched all the cards.");
+        const gameOver = new Audio('./mixkit-musical-game-over-959.wav');
+        gameOver.play();
+      },1000)
     }
 }
   
