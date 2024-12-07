@@ -5,11 +5,44 @@ let firstCard,secondCard;
 let matchedCards = 0;
 let lockboard =false
 
+//FOR TIMER
+let timer = document.getElementById("timer")
+let restart = document.getElementById("restartButton")
+// let score = document.getElementById("score")
+
+let timeending =new Audio("./timer-digital-countdown-bop-audio-1-00-04.mp3")
+   
+
+let i = 60; // Start from 60
+const interval = setInterval(() => {
+  timer.textContent = "00" + ":"+ +i+"s"
+  i--; // Decrement the value
+  setTimeout(() =>{
+    if(i<3 && i>0){
+      timeending.play()
+    }
+  },0)
+ 
+  if (i < 0) { // Stop when it reaches below 0
+    clearInterval(interval);
+    alert("Time is UP")
+    resetGame()
+   
+   
+  }
+},1000); // Execute every 1000ms (1 second)
+
+
+
+
 function flipcard(card) {
     // Toggles the 'flip' class on the clicked card
    if(lockboard){
     return;
    }
+   //stop clicking same card twice
+   if(card === firstCard) return;
+
     card.classList.toggle("flip");
     const music = new Audio('./flipsound.mp3')
     music.play();
@@ -33,8 +66,18 @@ function flipcard(card) {
     }
 }
 
+
+    let score=0;
+
     function checkformatch(){
+     
         if(firstCard.dataset.name === secondCard.dataset.name){
+
+        setTimeout(() =>{
+          score++;
+          document.getElementById("score").textContent = "Score"+ ":" +score*5
+        },1200)
+         
             //its match
             ifCardsMatch();
         }
@@ -86,9 +129,11 @@ function changeCardOrder() {
   function checkgameover(){
     if(matchedCards === cards.length/2){     
       setTimeout(()=>{
-        alert("Congratulations! You've matched all the cards.");
         const gameOver = new Audio('./mixkit-musical-game-over-959.wav');
         gameOver.play();
+        alert("Congratulations! You've matched all the cards.");
+        resetGame()
+
       },1000)
     }
 }
@@ -99,14 +144,15 @@ function changeCardOrder() {
     hasflippedcard = false;
     firstCard = null;
     secondCard = null;
+    
     //  reset button
-    document.getElementById("resetButton");
+    document.getElementById("resetButton")
 
     for (let i = 0; i < cards.length; i++) {
         cards[i].classList.remove('flip');
         cards[i].addEventListener('click', handleCardClick); // Re-enable card clicks
+        
       }
-    
      
     changeCardOrder(); // Shuffle cards
 }
@@ -122,9 +168,6 @@ for (let i = 0; i < cards.length; i++) {
   document.getElementById("resetButton").addEventListener("click", resetGame);
 
 
-  
-
-
 
   function startgame(){
     setTimeout(() =>{
@@ -135,3 +178,64 @@ for (let i = 0; i < cards.length; i++) {
     
   }
   
+////////////////////
+  
+  function handleRestartButton() {
+    // Reset all necessary game states and UI elements
+   
+    // Reset timer
+    clearInterval(interval); // Stop the timer interval
+    i = 60; // Reset timer to initial value
+    timer.textContent = "01:00s"; // Update the displayed timer
+
+    // Reset score display
+    document.getElementById("score").textContent = "Score: 0";
+
+    // Flip back all cards and re-enable clicks
+    for (let i = 0; i < cards.length; i++) {
+        cards[i].classList.remove('flip');
+        cards[i].addEventListener('click', handleCardClick);
+    }
+
+    // Shuffle the cards
+    changeCardOrder();
+
+    // Restart timer
+    const newInterval = setInterval(() => {
+      timer.textContent = `00:${i}s`;
+      i--;
+
+        if (i < 3 && i > 0) {
+            timeending.play();
+        }
+
+        if (i < 0) {
+            clearInterval(newInterval);
+            alert("Time is UP");
+            resetGame();
+        }
+    }, 1000);
+
+    alert("Game restarted! Good luck!");
+}
+
+// Add event listener to the restart button
+restart.addEventListener("click", handleRestartButton);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
