@@ -148,24 +148,30 @@ function changeCardOrder() {
 }
 
   
+function resetGame() {
+  // Reset game state variables
+  matchedCards = 0;
+  hasflippedcard = false;
+  firstCard = null;
+  secondCard = null;
 
-  function resetGame() {
-    matchedCards = 0;
-    hasflippedcard = false;
-    firstCard = null;
-    secondCard = null;
-    
-    //  reset button
-    document.getElementById("resetButton")
+  // Reset score
+  score = 0; // Reset the score variable
+  document.getElementById("score").textContent = "Score: 0"; // Update score display
 
-    for (let i = 0; i < cards.length; i++) {
-        cards[i].classList.remove('flip');
-        cards[i].addEventListener('click', handleCardClick); // Re-enable card clicks
-        
-      }
-     
-    changeCardOrder(); // Shuffle cards
+  // Unflip all cards and re-enable click events
+  for (let i = 0; i < cards.length; i++) {
+      cards[i].classList.remove('flip');
+      cards[i].addEventListener('click', handleCardClick); // Re-enable clicks
+  }
+
+  // Shuffle the cards
+  changeCardOrder();
+
+  // Reset the timer
+ 
 }
+
 
 
 for (let i = 0; i < cards.length; i++) {
