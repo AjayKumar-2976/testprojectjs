@@ -129,11 +129,19 @@ transform: rotateY(180deg);
     border-radius: 5px;
   }
 
-  #timer {
+  #timer, #score {
     text-align: center;
     color: black;
     font-size: 18px;
     margin-bottom: 10px;
   }
+
+  #resetButton, #restartButton {
+    width: 100%; /* Full width for mobile */
+    margin: 10px auto; /* Center horizontally with smaller margin */
+    padding: 8px;
+    font-size: 16px; /* Slightly smaller font size */
+  }
+
 
 }
