@@ -1,4 +1,4 @@
-let cards = document.getElementsByClassName("cards")
+let cards = document.querySelectorAll(".cards");
 
 let  hasflippedcard = false;
 let firstCard,secondCard;
@@ -13,25 +13,25 @@ let restart = document.getElementById("restartButton")
 let timeending =new Audio("./timer-digital-countdown-bop-audio-1-00-04.mp3")
    
 
-let i = 60; // Start from 60
-const interval = setInterval(() => {
-  timer.textContent = "00" + ":"+ +i+"s"
-  i--; // Decrement the value
-  setTimeout(() =>{
-    if(i<3 && i>0){
-      timeending.play()
-    }
-  },0)
- 
-  if (i < 0) { // Stop when it reaches below 0
-    clearInterval(interval);
-    alert("Time is UP")
-    resetGame()
-   
-   
-  }
-},1000); // Execute every 1000ms (1 second)
+let interval; // Declare at a higher scope to reuse
 
+function startTimer() {
+    clearInterval(interval); // Clear any existing timer
+    i = 60; // Reset time
+    interval = setInterval(() => {
+        timer.textContent = `00:${i}s`;
+        if (i < 3 && i > 0) {
+            timeending.play();
+        }
+        if (i === 0) {
+            clearInterval(interval);
+            alert("Time is UP");
+            resetGame();
+        }
+        i--;
+    }, 1000);
+}
+startTimer()
 
 
 
@@ -92,8 +92,8 @@ function ifCardsMatch(){
         const correctmatch = new Audio('./game-bonus-144751.mp3')
         correctmatch.play();
 
-        firstCard.removeEventListener('click',flipcard)
-        secondCard.removeEventListener('click',flipcard)
+        firstCard.removeEventListener('click',handleCardClick)
+        secondCard.removeEventListener('click',handleCardClick)
         matchedCards++;
         checkgameover()
     },1000)
@@ -132,11 +132,21 @@ function changeCardOrder() {
         const gameOver = new Audio('./mixkit-musical-game-over-959.wav');
         gameOver.play();
         alert("Congratulations! You've matched all the cards.");
-        resetGame()
 
+        clearInterval(interval); // Stop the timer
+        timer.textContent = "01:00s"; // Reset timer display
+        document.getElementById("score").textContent = "Score: 0"; // Reset score display
+        
+        // Restart the game
+        resetGame(); // Reset cards and shuffle them
+        startTimer(); // Start a fresh timer
+
+      
       },1000)
     }
+   
 }
+
   
 
   function resetGame() {
@@ -162,12 +172,10 @@ for (let i = 0; i < cards.length; i++) {
     cards[i].addEventListener("click",handleCardClick)
     //   console.log(`Card ${i + 1} clicked`);
   }
-
   changeCardOrder()
+  
 
   document.getElementById("resetButton").addEventListener("click", resetGame);
-
-
 
   function startgame(){
     setTimeout(() =>{
@@ -180,7 +188,7 @@ for (let i = 0; i < cards.length; i++) {
   
 ////////////////////
   
-  function handleRestartButton() {
+  function RestartButton() {
     // Reset all necessary game states and UI elements
    
     // Reset timer
@@ -200,27 +208,12 @@ for (let i = 0; i < cards.length; i++) {
     // Shuffle the cards
     changeCardOrder();
 
-    // Restart timer
-    const newInterval = setInterval(() => {
-      timer.textContent = `00:${i}s`;
-      i--;
-
-        if (i < 3 && i > 0) {
-            timeending.play();
-        }
-
-        if (i < 0) {
-            clearInterval(newInterval);
-            alert("Time is UP");
-            resetGame();
-        }
-    }, 1000);
-
+    startTimer()
     alert("Game restarted! Good luck!");
-}
+  }
 
 // Add event listener to the restart button
-restart.addEventListener("click", handleRestartButton);
+restart.addEventListener("click", RestartButton);
 
 
 
