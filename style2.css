@@ -9,7 +9,7 @@ body{
 
 button{
     width: 100px;
-    height: 40px;
+    height: 35px;
     font-size: larger;
    font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
     border-radius: 10px;
@@ -29,4 +29,6 @@ div{
     font-size: 30px;
     color: #333;
     font-weight: bold;
+    
   }
+
