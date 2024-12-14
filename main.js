@@ -11,8 +11,6 @@ let restart = document.getElementById("restartButton")
 // let score = document.getElementById("score")
 
 let timeending =new Audio("./timer-digital-countdown-bop-audio-1-00-04.mp3")
-   
-
 let interval; // Declare at a higher scope to reuse
 
 function startTimer() {
@@ -20,10 +18,14 @@ function startTimer() {
     i = 60; // Reset time
     interval = setInterval(() => {
         timer.textContent = `00:${i}s`;
-        if (i < 3 && i > 0) {
+        if (i <= 3 && i > 0) {
             timeending.play();
         }
+        setTimeout(()=>{
+          
+        })
         if (i === 0) {
+          lockboard = true;
             clearInterval(interval);
             alert("Time is UP");
             resetGame();
@@ -102,11 +104,11 @@ function ifCardsMatch(){
 
 function unflipCards(){
      //no match flip them
-     lockboard=true
+     lockboard=true;
      setTimeout(()=>{
         firstCard.classList.remove('flip')
         secondCard.classList.remove('flip')
-     lockboard=false
+     lockboard=false;
     },1000) // Delay to show the flip before turning back
     }
 
@@ -126,26 +128,48 @@ function changeCardOrder() {
   }
 
 
-  function checkgameover(){
-    if(matchedCards === cards.length/2){     
-      setTimeout(()=>{
-        const gameOver = new Audio('./mixkit-musical-game-over-959.wav');
-        gameOver.play();
-        alert("Congratulations! You've matched all the cards.");
+//   function checkgameover(){
+//     if(matchedCards === cards.length/2){     
+//       setTimeout(()=>{
+//         const gameOver = new Audio('./mixkit-musical-game-over-959.wav');
+//         gameOver.play();
+//         alert("Congratulations! You've matched all the cards.");
 
-        clearInterval(interval); // Stop the timer
-        timer.textContent = "01:00s"; // Reset timer display
-        document.getElementById("score").textContent = "Score: 0"; // Reset score display
+//         clearInterval(interval); // Stop the timer
+//         timer.textContent = "01:00s"; // Reset timer display
+//         document.getElementById("score").textContent = "Score: 0"; // Reset score display
         
-        // Restart the game
-        resetGame(); // Reset cards and shuffle them
-        startTimer(); // Start a fresh timer
+//         // Restart the game
+//         resetGame(); // Reset cards and shuffle them
+//         startTimer(); // Start a fresh timer
 
       
-      },1000)
-    }
+//       }) //1000
+//     }
    
+// }
+
+function checkgameover() {
+  if (matchedCards === cards.length / 2) { // Game over condition
+      setTimeout(() => {
+          const gameOverSound = new Audio('./mixkit-musical-game-over-959.wav');
+          gameOverSound.play();
+          alert("Congratulations! You've matched all the cards.");
+
+          clearInterval(interval); // Stop the timer
+
+          // Save score and time to localStorage
+          const finalScore = score * 5; // Assuming score is calculated as score * 5
+          const timeLeft = i; // 'i' is the timer value
+          localStorage.setItem('finalScore', finalScore);
+          localStorage.setItem('timeLeft', timeLeft);
+
+          // Redirect to the results page
+          window.location.href = 'results.html'; // New results page
+      }, 1000);
+  }
 }
+
 
   
 function resetGame() {
@@ -167,8 +191,6 @@ function resetGame() {
 
   // Shuffle the cards
   changeCardOrder();
-
-  // Reset the timer
  
 }
 
@@ -182,12 +204,12 @@ for (let i = 0; i < cards.length; i++) {
   
 
   document.getElementById("resetButton").addEventListener("click", resetGame);
-
   function startgame(){
     setTimeout(() =>{
         location.assign("./index.html")
     },2800)
     const countdown =new Audio("./game-start-countdown-SBA-300420112-preview.mp3")
+    countdownAudio.preload = "auto";
     countdown.play()
     
   }
@@ -221,10 +243,9 @@ for (let i = 0; i < cards.length; i++) {
 // Add event listener to the restart button
 restart.addEventListener("click", RestartButton);
 
-
-
-
-
+document.getElementById("restartButton").addEventListener("click", function() {
+  window.location.href = "index2.html";
+});
 
 
 
