@@ -1,4 +1,5 @@
 let cards = document.querySelectorAll(".cards");
+console.log(cards);
 
 let  hasflippedcard = false;
 let firstCard,secondCard;
@@ -27,7 +28,14 @@ function startTimer() {
         if (i === 0) {
           lockboard = true;
             clearInterval(interval);
-            alert("Time is UP");
+
+            const finalScore = score * 5; // Final score calculation
+            localStorage.setItem('finalScore', finalScore);
+            localStorage.setItem('timeLeft', 0); // Time is up, no time left
+
+            // alert("Time is UP!");
+            window.location.href = "results.html"; 
+            alert("YOU LOST THE MATCH");
             resetGame();
         }
         i--;
@@ -75,6 +83,9 @@ function flipcard(card) {
      
         if(firstCard.dataset.name === secondCard.dataset.name){
 
+          firstCard.removeEventListener('click', handleCardClick);
+          secondCard.removeEventListener('click', handleCardClick);
+
         setTimeout(() =>{
           score++;
           document.getElementById("score").textContent = "Score"+ ":" +score*5
@@ -117,6 +128,9 @@ function unflipCards(){
     flipcard(this); // 'this' refers to the card being clicked
 }
 
+// function handleCardClick() {
+//   flipcard(cards[i]); // 'this' refers to the card being clicked
+// }
 
 
 function changeCardOrder() {
@@ -127,27 +141,6 @@ function changeCardOrder() {
     }
   }
 
-
-//   function checkgameover(){
-//     if(matchedCards === cards.length/2){     
-//       setTimeout(()=>{
-//         const gameOver = new Audio('./mixkit-musical-game-over-959.wav');
-//         gameOver.play();
-//         alert("Congratulations! You've matched all the cards.");
-
-//         clearInterval(interval); // Stop the timer
-//         timer.textContent = "01:00s"; // Reset timer display
-//         document.getElementById("score").textContent = "Score: 0"; // Reset score display
-        
-//         // Restart the game
-//         resetGame(); // Reset cards and shuffle them
-//         startTimer(); // Start a fresh timer
-
-      
-//       }) //1000
-//     }
-   
-// }
 
 function checkgameover() {
   if (matchedCards === cards.length / 2) { // Game over condition
@@ -204,13 +197,17 @@ for (let i = 0; i < cards.length; i++) {
   
 
   document.getElementById("resetButton").addEventListener("click", resetGame);
+
   function startgame(){
+    const countdown =new Audio("./game-start-countdown-SBA-300420112-preview.mp3")
+    countdown.preload = "auto";
+    countdown.play()
+
     setTimeout(() =>{
         location.assign("./index.html")
+        
     },2800)
-    const countdown =new Audio("./game-start-countdown-SBA-300420112-preview.mp3")
-    countdownAudio.preload = "auto";
-    countdown.play()
+   
     
   }
   
