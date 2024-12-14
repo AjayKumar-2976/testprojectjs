@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game Results</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f3f3f3;
+            padding: 20px;
+        }
+        .results-container {
+            margin: 50px auto;
+            padding: 20px;
+            background: #fff;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            width: 80%;
+            max-width: 400px;
+        }
+        h1 {
+            color: #333;
+        }
+        p {
+            font-size: 18px;
+            margin: 10px 0;
+        }
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            margin-top: 20px;
+            background-color: #007bff;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+        .btn:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="results-container">
+        <h1>Game Results</h1>
+        <p id="finalScore">Score: </p>
+        <p id="timeCompleted">Time Left: </p>
+        <a href="index.html" class="btn">Play Again</a>
+    </div>
+    <script>
+        // Fetch score and time from localStorage
+        const finalScore = localStorage.getItem('finalScore');
+        const timeLeft = localStorage.getItem('timeLeft');
+
+        // Update the results page
+        document.getElementById('finalScore').textContent = `Score: ${finalScore}`;
+        document.getElementById('timeCompleted').textContent = `Time Left: ${timeLeft}s`;
+    </script>
+</body>
+</html>
